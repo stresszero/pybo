@@ -1,12 +1,32 @@
 from django.urls import path
-
-from . import views
+from .views import base_views, question_views, answer_views
 
 app_name = "pybo"  # 다른 앱에서 같은 url 별칭을 쓸 경우 중복 방지
 urlpatterns = [
-    path('', views.index, name="index"),  # /pybo/는 index
-    path('<int:question_id>/', views.detail, name="detail"),  # /pybo/2는 detail
+    # base_views.py
+    path('',
+         base_views.index, name='index'),
+    path('<int:question_id>/',
+         base_views.detail, name='detail'),
+
+    # question_views.py
+    path('question/create/',
+         question_views.question_create, name='question_create'),
+    path('question/modify/<int:question_id>/',
+         question_views.question_modify, name='question_modify'),
+    path('question/delete/<int:question_id>/',
+         question_views.question_delete, name='question_delete'),
+
+    # answer_views.py
     path('answer/create/<int:question_id>/',
-         views.answer_create, name='answer_create'),
-    path('question/create/', views.question_create, name='question_create'),
+         answer_views.answer_create, name='answer_create'),
+    path('answer/modify/<int:answer_id>/',
+         answer_views.answer_modify, name='answer_modify'),
+    path('answer/delete/<int:answer_id>/',
+         answer_views.answer_delete, name='answer_delete'),
+    path('question/vote/<int:question_id>/',
+         question_views.question_vote, name='question_vote'),
+    path('answer/vote/<int:answer_id>/',
+         answer_views.answer_vote, name='answer_vote'),
+
 ]
