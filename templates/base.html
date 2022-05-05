@@ -1,0 +1,30 @@
+{% load static %}
+{% comment %} base.html 템플릿은 모든 템플릿이 상속해야 하는 템플릿으로 표준 HTML 문서의 기본 틀이된다. 
+body 엘리먼트 안의 block content와 endblock 템플릿 태그는 base.html을 상속한 
+템플릿에서 개별적으로 구현해야 하는 영역이 된다. {% endcomment %}
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'bootstrap.min.css' %}"
+    />
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+    <title>Hello, pybo!</title>
+  </head>
+  <body>
+    <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+    {% block content %} 
+    {% endblock %}
+    <!-- 기본 템플릿 안에 삽입될 내용 End -->
+  </body>
+</html>
