@@ -14,18 +14,17 @@ def answer_create(request, question_id):
     pybo 답변등록
     """
     question = get_object_or_404(Question, pk=question_id)
-    if request.method == "POST":
-        form = AnswerForm(request.POST)
-        if form.is_valid():
-            answer = form.save(commit=False)
-            answer.author = request.user  # author 속성에 로그인 계정 저장
-            answer.create_date = timezone.now()
-            answer.question = question
-            answer.save()
-            return redirect('{}#answer_{}'.format(
-                resolve_url('pybo:detail', question_id=question.id), answer.id))
-    else:
+    if request.method != "POST":
         return HttpResponseNotAllowed('Only POST is possible.')
+    form = AnswerForm(request.POST)
+    if form.is_valid():
+        answer = form.save(commit=False)
+        answer.author = request.user  # author 속성에 로그인 계정 저장
+        answer.create_date = timezone.now()
+        answer.question = question
+        answer.save()
+        return redirect('{}#answer_{}'.format(
+            resolve_url('pybo:detail', question_id=question.id), answer.id))
     context = {'question': question, 'form': form}
     return render(request, 'pybo/question_detail.html', context)
 
